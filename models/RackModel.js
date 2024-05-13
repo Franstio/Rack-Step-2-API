@@ -1,11 +1,9 @@
 import { Sequelize, Op } from "sequelize";
 import db from "../config/db.js";
 const { DataTypes } = Sequelize;
+import Waste from "./WasteModel.js";
 
 const Rack = db.define('rack', {
-    rackId: {
-        type: DataTypes.INTEGER,
-    },
     name: {
         type: DataTypes.STRING,
     },
@@ -21,8 +19,23 @@ const Rack = db.define('rack', {
     wasteId: {
         type: DataTypes.INTEGER,
     },
+    rackId: {
+        type: DataTypes.INTEGER,
+        primaryKey:true
+    },
+    address: {
+        type: DataTypes.INTEGER,
+    },
+    value: {
+        type: DataTypes.INTEGER
+    }
+
 }, {
     freezeTableName: true
 });
+
+
+Waste.hasMany(Rack, { foreignKey: 'wasteId', as: 'dataWaste' });
+Rack.belongsTo(Waste, { foreignKey: 'wasteId', as: 'dataWaste' });
 
 export default Rack;

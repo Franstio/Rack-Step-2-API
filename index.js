@@ -12,14 +12,14 @@ import RackRoute from "./routes/RackRoute.js"
 const app = express();
 const server = http.createServer(app);
 
-/* try {
+try {
   await db.authenticate();
   console.log('Database terhubung..');
   
 } catch (error) {
   console.error(error);
   
-} */
+}
 
 const port = 5000;
 

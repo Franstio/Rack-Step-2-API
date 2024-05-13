@@ -5,5 +5,8 @@ content-type: application/json
 {
 "address": 32,
 "value": 1,
-"idRack" : 1
+"idRack" : 1 
 }
+
+###
+GET http://localhost:5000/racklist
