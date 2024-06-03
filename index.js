@@ -1,16 +1,39 @@
 import express from "express";
-import RackDoorRoute from "./routes/RackDoorRoute.js";
+import ScalesRoute from "./routes/ScalesRoute.js";
+import ScannerRoute from "./routes/ScannerRoute.js";
+//import RackDoorRoute from "./routes/RackDoorRoute.js";
+import RackRoute from "./routes/RackRoute.js"
+import db from "./config/db.js";
 import cors from  "cors";
 import http from 'http';
 import { Server } from "socket.io";
-import db from "./config/db.js";
+import { getScales50Kg} from "./controllers/Scales.js";
 import bodyParser from "body-parser";
-import cookieParser from "cookie-parser";
-import RackRoute from "./routes/RackRoute.js"
-
-
+//import {getWeightBin} from "./controllers/Bin.js"
 const app = express();
 const server = http.createServer(app);
+const clientList= [];
+const port = 5000;
+
+ app.use(cors({
+  origin: '*', // Allow any origin
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
+/*  allowedHeaders: ['Content-Type', 'Authorization'], // Allow specific headers*/
+  credentials:false 
+}));
+
+/* app.use(cors({
+  credentials:false,
+  origin: '*'
+})); */
+
+const io = new Server(server, {
+  cors: {
+    origin: "*"
+  }
+});
+
+app.use(bodyParser.json());
 
 try {
   await db.authenticate();
@@ -21,19 +44,29 @@ try {
   
 }
 
-const port = 5000;
 
-app.use(cors({
-  credentials: true,
-  origin: 'http://localhost:3000'
-}));
-
-app.use(bodyParser.json());
-app.use(cookieParser());
-app.use(RackDoorRoute);
+app.use(ScalesRoute);
+app.use(ScannerRoute);
+//app.use(TriggerRackLock);
+//app.use(RackDoorRoute);
 app.use(RackRoute);
 
+/* io.on('connection',(socket)=>{
+//  console.log("listening socket.io");
+getWeightBin(socket);
+
+socket.on('disconnect',()=>{
+    const index = clientList.findIndex(v=>v.id==socket.id);
+    if (index < 0)
+      return;
+    clientList.splice(index,1);
+    console.log(clientList);
+});
+
+}); */
 
 server.listen(port, () => {
   console.log(`Server up and running on port ${port}`);
 });
+export {clientList,io,Server};
+getScales50Kg(io);

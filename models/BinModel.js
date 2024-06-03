@@ -1,32 +1,44 @@
 import { Sequelize, Op } from "sequelize";
 import db from "../config/db.js";
-import waste from "./WesteModel.js";
-
 const { DataTypes } = Sequelize;
+import Waste from "./WasteModel.js";
 
-const bin = db.define('bin', {
-    id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        primaryKey: true
-    },
+const Bin = db.define('bin', {
     name: {
         type: DataTypes.STRING,
     },
-    weight: {
+    clientId: {
         type: DataTypes.INTEGER,
     },
-    type_waste: {
+    weight: {
+        type: DataTypes.DECIMAL,
+    },
+    max_weight: {
+        type: DataTypes.DECIMAL,
+    },
+    weightbin: {
+        type: DataTypes.INTEGER,
+    },
+    IdWaste: {
+        type: DataTypes.INTEGER,
+    },
+    rackId: {
+        type: DataTypes.INTEGER,
+        primaryKey:true
+    },
+    address: {
+        type: DataTypes.INTEGER,
+    },
+    value: {
         type: DataTypes.INTEGER
     }
+
 }, {
-    freezeTableName: true,
-    timestamps:false
+    freezeTableName: true
 });
 
-waste.hasMany(bin, { foreignKey: 'type_waste', as: 'bin' });
-bin.belongsTo(waste, { foreignKey: 'type_waste', as: 'waste' });
-//waste.belongsTo(Container, { foreignKey: 'container', as: 'datacontainer' });
-//Container.hasMany(waste, { foreignKey: 'container', as: 'datacontainer' });
 
-export default bin;
+Waste.hasMany(Bin, { foreignKey: 'IdWaste', as: 'bin' });
+Bin.belongsTo(Waste, { foreignKey: 'IdWaste', as: 'waste' });
+
+export default Bin;

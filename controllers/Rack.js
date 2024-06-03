@@ -1,13 +1,12 @@
 import Rack from "../models/RackModel.js"
 import Waste from "../models/WasteModel.js";
 import Admin from "../models/AdminModel.js"
-import bcrypt from "bcrypt";
 
 export const getRackList = async (req, res) => {
     try {
         let response;
          response = await Rack.findAll({
-                attributes: ['name', 'clientId','weight', 'weightbin','wasteId','address','value'],
+                attributes: ['name', 'clientId','weight', 'weightbin','IdWaste','address','value'],
                  include: [{
                     model: Waste,
                     attributes: ['name'],
@@ -42,4 +41,3 @@ export const Login = async (req, res) => {
       res.status(500).json({ msg: 'Terjadi kesalahan server' });
     }
 }
-

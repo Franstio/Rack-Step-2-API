@@ -16,7 +16,7 @@ const Rack = db.define('rack', {
     weightbin: {
         type: DataTypes.INTEGER,
     },
-    wasteId: {
+    IdWaste: {
         type: DataTypes.INTEGER,
     },
     rackId: {
@@ -35,7 +35,7 @@ const Rack = db.define('rack', {
 });
 
 
-Waste.hasMany(Rack, { foreignKey: 'wasteId', as: 'dataWaste' });
-Rack.belongsTo(Waste, { foreignKey: 'wasteId', as: 'dataWaste' });
+Waste.hasMany(Rack, { foreignKey: 'IdWaste', as: 'dataWaste' });
+Rack.belongsTo(Waste, { foreignKey: 'IdWaste', as: 'dataWaste' });
 
 export default Rack;
