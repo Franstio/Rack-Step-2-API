@@ -27,7 +27,7 @@ const transaction = db.define('transaction', {
         allowNull: true  
     },
     weight   : {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL,
         allowNull: true  
     },
    recordDate: {

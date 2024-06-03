@@ -81,7 +81,7 @@ export const VerificationScan = async (req, res) => {
 
 export const CheckBinCapacity = async (req, res) => {
     const { IdWaste, neto } = req.body;
-console.log(IdWaste);
+console.log(req.body);
     try {
         // Mengambil semua tempat sampah yang sesuai dengan type_waste dari database
         const bins = await Bin.findAll({
