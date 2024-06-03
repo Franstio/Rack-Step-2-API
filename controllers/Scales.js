@@ -1,5 +1,4 @@
 import { SerialPort } from 'serialport';
-/* 
 const Timbangan = new SerialPort({
     path: '/dev/ttyUSB0',
     baudRate: 9600,
@@ -10,7 +9,7 @@ const Timbangan = new SerialPort({
 
 Timbangan.on('error', (error) => {
     console.log(error);
-}); */
+});
 
 let _50kgOutput = '';
 export const getScales50Kg = (io) => {
