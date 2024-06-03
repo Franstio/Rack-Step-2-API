@@ -23,7 +23,7 @@ export const getScales50Kg = (io) => {
          },5000); */
         io.on('connectScale', () => {
             console.log("reconnect scale");
-            Timbangan_1.open(() => {
+            Timbangan.open(() => {
                 console.log("opening port");
             });
         });
@@ -34,7 +34,7 @@ export const getScales50Kg = (io) => {
                 return;
             }*/
             _50kgOutput = data.toString().replace("\r","").replace("\n","");
-            //console.log(_50kgOutput);
+        console.log(_50kgOutput);
             const match = _50kgOutput.toString().match(/[\d]+\.\d{2}(?=Kg)/);
           //  console.log({ "50kg": _50kgOutput.toString(),match:match });
 
