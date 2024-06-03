@@ -133,10 +133,10 @@ export const SaveTransaksiCollection = async (req,res) => {
 };
 
 export const UpdateBinWeight = async (req,res) =>{
-    const {binId,neto} = req.body;
+    const {binId,weight} = req.body;
     const data = await Bin.findOne({where: {rackId:binId}});
-    data.weight = parseFloat(neto) + parseFloat(data.weight);
-    console.log([data.weight,neto]);
+    data.weight = parseFloat(weight) + parseFloat(data.weight);
+//    console.log([data.weight,neto]);
     await data.save();
     
     await updateBinWeightData(data.name_hostname);
