@@ -3,7 +3,7 @@ import db from "../config/db.js";
 const { DataTypes } = Sequelize;
 import Waste from "./WasteModel.js";
 
-const Rack = db.define('rack', {
+const Rack = db.define('bin', {
     name: {
         type: DataTypes.STRING,
     },
