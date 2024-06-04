@@ -38,7 +38,7 @@ const Bin = db.define('bin', {
 });
 
 
-Waste.hasMany(Bin, { foreignKey: 'IdWaste', as: 'bin' });
-Bin.belongsTo(Waste, { foreignKey: 'IdWaste', as: 'waste' });
+Waste.hasMany(Bin, { foreignKey: 'IdWaste', as: 'dataWaste' });
+Bin.belongsTo(Waste, { foreignKey: 'IdWaste', as: 'dataWaste' });
 
 export default Bin;
