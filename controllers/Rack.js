@@ -1,12 +1,11 @@
 import Rack from "../models/RackModel.js"
 import Waste from "../models/WasteModel.js";
 import Admin from "../models/AdminModel.js"
-import Bin from "../models/BinModel.js"
 
 export const getRackList = async (req, res) => {
     try {
         let response;
-         response = await Bin.findAll({
+         response = await Rack.findAll({
                 attributes: ['name', 'clientId','weight', 'weightbin','IdWaste','address','value'],
                  include: [{
                     model: Waste,
