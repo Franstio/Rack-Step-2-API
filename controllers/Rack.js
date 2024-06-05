@@ -6,7 +6,7 @@ export const getRackList = async (req, res) => {
     try {
         let response;
          response = await Rack.findAll({
-                attributes: ['name', 'clientId','weight', 'weightbin','IdWaste','address','value','max_weight'],
+                attributes: ['rackId','name', 'clientId','weight', 'weightbin','IdWaste','address','value','max_weight'],
                  include: [{
                     model: Waste,
                     attributes: ['name'],
