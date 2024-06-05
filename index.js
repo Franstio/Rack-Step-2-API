@@ -44,26 +44,16 @@ try {
   
 }
 
-
 app.use(ScalesRoute);
 app.use(ScannerRoute);
-//app.use(TriggerRackLock);
-//app.use(RackDoorRoute);
 app.use(RackRoute);
 
-/* io.on('connection',(socket)=>{
-//  console.log("listening socket.io");
-getWeightBin(socket);
-
-socket.on('disconnect',()=>{
-    const index = clientList.findIndex(v=>v.id==socket.id);
-    if (index < 0)
-      return;
-    clientList.splice(index,1);
-    console.log(clientList);
+io.on('connection', (socket) => {
+  console.log('a user connected');
+  socket.on('disconnect', () => {
+      console.log('user disconnected');
+  });
 });
-
-}); */
 
 server.listen(port, () => {
   console.log(`Server up and running on port ${port}`);

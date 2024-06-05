@@ -138,9 +138,10 @@ export const UpdateBinWeight = async (req,res) =>{
     data.weight = parseFloat(weight) + parseFloat(data.weight);
 //    console.log([data.weight,neto]);
     await data.save();
+     // Emit the updated weight to the frontend
+     io.emit('weightUpdated', { binId: data.rackId, weight: data.weight });
     
-    await updateBinWeightData(data.name_hostname);
-   // await switchLamp(data.id,"RED",data.weight >= parseFloat(data.max_weight))
+    //await updateBinWeightData(data.name_hostname);
     res.status(200).json({msg:'ok'});
 };
 
@@ -151,7 +152,8 @@ export const UpdateBinWeightCollection = async (req, res) => {
     if (data) {
         data.weight = 0; // Set weight to 0
         await data.save();
-        await updateBinWeightData(data.name_hostname);
+        io.emit('weightUpdated', { binId: data.rackId, weight: data.weight });
+        //await updateBinWeightData(data.name_hostname);
         res.status(200).json({ msg: 'ok' });
     } else {
         res.status(404).json({ msg: 'Bin not found' });
