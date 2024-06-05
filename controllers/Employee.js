@@ -139,7 +139,6 @@ export const UpdateBinWeight = async (req,res) =>{
     data.weight = parseFloat(weight) + parseFloat(data.weight);
 //    console.log([data.weight,neto]);
     await data.save();
-     // Emit the updated weight to the frontend
      io.emit('weightUpdated', { binId: data.rackId, weight: data.weight });
     
     //await updateBinWeightData(data.name_hostname);
