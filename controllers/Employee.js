@@ -5,6 +5,7 @@ import Bin from "../models/BinModel.js";
 import transaction from "../models/TransactionModel.js"
 import moment from 'moment';
 import { updateBinWeightData } from "./Bin.js";
+import {io } from "../index.js";
 
 
 export const ScanBadgeid = async (req, res) => {
