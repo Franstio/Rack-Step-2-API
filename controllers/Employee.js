@@ -80,7 +80,7 @@ export const VerificationScan = async (req, res) => {
     }
 };
 
-/* export const CheckBinCapacity = async (req, res) => {
+export const CheckBinCapacity = async (req, res) => {
     const { IdWaste, neto } = req.body;
 console.log(req.body);
     try {
@@ -115,45 +115,7 @@ console.log(req.body);
         console.error('Error checking bin capacity:', error);
         res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
-}; */
-
-export const CheckBinCapacity = async (req, res) => {
-    const { name, neto } = req.body;
-    console.log(req.body);
-    try {
-        // Mengambil semua tempat sampah yang sesuai dengan nama dari database
-        const bins = await Bin.findAll({
-            where: {
-                name: name
-            }
-        });
-
-        // Jika tidak ada tempat sampah yang ditemukan untuk nama yang diberikan
-        if (!bins || bins.length === 0) {
-            return res.status(404).json({ success: false, message: 'No bins found for the given name' });
-        }
-
-        // Menyaring tempat sampah yang memiliki kapasitas cukup untuk neto
-        let eligibleBins = bins.filter(rack => (parseFloat(rack.weight) + parseFloat(neto)) <= parseFloat(rack.max_weight));
-
-        // Jika tidak ada tempat sampah yang memenuhi kapasitas
-        if (eligibleBins.length === 0) {
-            return res.status(200).json({ success: false, message: 'No bins with enough capacity found' });
-        }
-
-        // Mengurutkan tempat sampah berdasarkan kapasitas yang paling kosong terlebih dahulu
-        eligibleBins = eligibleBins.sort((a, b) => parseFloat(a.weight) - parseFloat(b.weight));
-        
-        // Memilih tempat sampah yang paling kosong
-        let selectedBin = eligibleBins[0];
-
-        res.status(200).json({ success: true, rack: selectedBin });
-    } catch (error) {
-        console.error('Error checking bin capacity:', error);
-        res.status(500).json({ success: false, message: 'Internal Server Error' });
-    }
 };
-
 
 export const SaveTransaksi = async (req,res) => {
     const {payload} = req.body;
