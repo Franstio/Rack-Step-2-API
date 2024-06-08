@@ -182,7 +182,7 @@ export const UpdateStatusContainer = async (req, res) => {
     try {
        const { name, status} = req.body;
         console.log([name, status]);
-        if (!name || !status) {
+        if (!name ) {
             return res.status(400).json({ msg: "Name dan status harus disertakan" });
         }
 
