@@ -191,8 +191,6 @@ export const UpdateStatusContainer = async (req, res) => {
                 name: name
             }
         });
-
-
         if (!existingContainer) {
             return res.status(404).json({ msg: "Data tidak ditemukan" });
         }
