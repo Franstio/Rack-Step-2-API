@@ -1,8 +1,14 @@
 ###
-POST  http://localhost:5000/ScanContainer
+POST  http://192.168.205.128/api/pid/pidatalog
 Content-Type: application/json
 
 {
-    "containerId": "PCS-17"
+  "badgeno": "123",
+  "logindate" : "", //memang dikosongkan
+  "stationname" : "2-PCL",
+  "frombinname" :"1-PCL-3-2-7-TM",
+  "tobinname" : "2-PCL-1-TM",
+  "weight" : "10.00",
+  "activity" :"Dispose"
 }
 

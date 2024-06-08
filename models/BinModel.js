@@ -31,6 +31,9 @@ const Bin = db.define('bin', {
     },
     value: {
         type: DataTypes.INTEGER
+    },
+    line: {
+        type: DataTypes.INTEGER
     }
 
 }, {

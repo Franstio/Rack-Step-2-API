@@ -81,13 +81,13 @@ export const VerificationScan = async (req, res) => {
 };
 
 export const CheckBinCapacity = async (req, res) => {
-    const { IdWaste, neto } = req.body;
+    const { line, neto } = req.body;
 console.log(req.body);
     try {
         // Mengambil semua tempat sampah yang sesuai dengan type_waste dari database
         const bins = await Bin.findAll({
             where: {
-                IdWaste: IdWaste
+                line: line
             }
         });
 
@@ -159,6 +159,37 @@ export const UpdateBinWeightCollection = async (req, res) => {
         res.status(404).json({ msg: 'Bin not found' });
     }
 };
+
+export const UpdateDataFromStep1 = async (req, res) => {
+    try {
+        const { name, status } = req.query;
+        if (!name || !status) {
+            return res.status(400).json({ msg: "Name dan status harus disertakan" });
+        }
+
+        const existingContainer = await Container.findOne({
+            where: {
+                name: name
+            }
+        });
+
+
+        if (!existingContainer) {
+            return res.status(404).json({ msg: "Data tidak ditemukan" });
+        }
+
+        await Container.update({ status: status }, {
+            where: {
+                name: name
+            }
+        });
+
+        res.status(200).json({ msg: "Status berhasil diperbarui" });
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+};
+
 
 /* export const Hostname = async (res) => {
     const hostname = os.hostname();
