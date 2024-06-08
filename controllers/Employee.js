@@ -162,7 +162,8 @@ export const UpdateBinWeightCollection = async (req, res) => {
 
 export const UpdateDataFromStep1 = async (req, res) => {
     try {
-        const { name, status } = req.query;
+        console.log(name, status);
+        const { name, status } = req.body;
         if (!name || !status) {
             return res.status(400).json({ msg: "Name dan status harus disertakan" });
         }
