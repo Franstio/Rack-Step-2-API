@@ -104,7 +104,6 @@ export const CheckBinCapacity = async (req, res) => {
     }
 };
 
-
 export const SaveTransaksi = async (req,res) => {
     const {payload} = req.body;
     payload.recordDate = moment().format("YYYY-MM-DD HH:mm:ss");
@@ -151,6 +150,37 @@ export const UpdateBinWeightCollection = async (req, res) => {
 export const UpdateDataFromStep1 = async (req, res) => {
     try {
         const { name, status } = req.body;
+        console.log([name, status]);
+        if (!name || !status) {
+            return res.status(400).json({ msg: "Name dan status harus disertakan" });
+        }
+
+        const existingContainer = await Container.findOne({
+            where: {
+                name: name
+            }
+        });
+
+
+        if (!existingContainer) {
+            return res.status(404).json({ msg: "Data tidak ditemukan" });
+        }
+
+        await Container.update({ status: status }, {
+            where: {
+                name: name
+            }
+        });
+
+        res.status(200).json({ msg: "Status berhasil diperbarui" });
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+};
+
+export const UpdateStatusContainer = async (req, res) => {
+    try {
+       const { name, status} = req.body;
         console.log([name, status]);
         if (!name || !status) {
             return res.status(400).json({ msg: "Name dan status harus disertakan" });
