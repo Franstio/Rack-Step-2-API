@@ -18,7 +18,10 @@ const container = db.define('container', {
     },
     status: {
         type: DataTypes.STRING,
-    }
+    },
+    line: {
+        type: DataTypes.STRING,
+    },
 
 }, {
     freezeTableName: true,

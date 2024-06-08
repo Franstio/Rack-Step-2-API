@@ -33,7 +33,7 @@ const Bin = db.define('bin', {
         type: DataTypes.INTEGER
     },
     line: {
-        type: DataTypes.INTEGER
+        type: DataTypes.STRING
     }
 
 }, {
