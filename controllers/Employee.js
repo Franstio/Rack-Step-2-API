@@ -149,8 +149,8 @@ export const UpdateBinWeightCollection = async (req, res) => {
 
 export const UpdateDataFromStep1 = async (req, res) => {
     try {
-        const { name, status } = req.body;
-        console.log([name, status]);
+        const { name, status ,line} = req.body;
+        console.log([name, status,line]);
         if (!name || !status) {
             return res.status(400).json({ msg: "Name dan status harus disertakan" });
         }
@@ -166,7 +166,7 @@ export const UpdateDataFromStep1 = async (req, res) => {
             return res.status(404).json({ msg: "Data tidak ditemukan" });
         }
 
-        await Container.update({ status: status }, {
+        await Container.update({ status: status,line: line }, {
             where: {
                 name: name
             }
@@ -180,7 +180,7 @@ export const UpdateDataFromStep1 = async (req, res) => {
 
 export const UpdateStatusContainer = async (req, res) => {
     try {
-       const { name, status,line} = req.body;
+       const { name, status} = req.body;
         console.log([name, status]);
         if (!name ) {
             return res.status(400).json({ msg: "Name dan status harus disertakan" });
@@ -195,7 +195,7 @@ export const UpdateStatusContainer = async (req, res) => {
             return res.status(404).json({ msg: "Data tidak ditemukan" });
         }
 
-        await Container.update({ status: status,line: line }, {
+        await Container.update({ status: status }, {
             where: {
                 name: name
             }
