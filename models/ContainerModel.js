@@ -20,7 +20,7 @@ const container = db.define('container', {
         type: DataTypes.STRING,
     },
     line: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
     },
 
 }, {
