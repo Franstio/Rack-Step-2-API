@@ -34,6 +34,9 @@ const Bin = db.define('bin', {
     },
     line: {
         type: DataTypes.STRING
+    },
+    sensor: {
+        type: DataTypes.STRING
     }
 
 }, {
