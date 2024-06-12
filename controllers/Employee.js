@@ -112,8 +112,8 @@ export const SaveTransaksi = async (req,res) => {
     const {payload,rackId} = req.body;
     console.log([payload,rackId]);
     const response = await apiClient.get("http://PCS-02.local:5000/sensorrack?SensorId="+rackId);
-    console.log(response);
-    if (response.statusCode != 200)
+    console.log([response,response.data]);
+    if (response.statusCode ==500)
     {
         res.status(403).json("Rack Id Invalid");
         return;
