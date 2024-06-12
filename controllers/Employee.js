@@ -109,9 +109,12 @@ export const CheckBinCapacity = async (req, res) => {
 };
 
 export const SaveTransaksi = async (req,res) => {
-    const {payload,rackId} = req.body;
-    console.log([payload,rackId]);
-    const response = await apiClient.get("http://PCS-02.local:5000/sensorrack?SensorId="+rackId);
+   // const {payload,clientId,address} = req.body;
+    const {payload,clientId,address} = req.body;
+    console.log([payload,clientId,address]);
+    //const response = await apiClient.get(`http://PCS-02.local:5000/sensorrack?clientId=${clientId}&address=${address}`);
+
+    const response = await apiClient.get("http://PCS-02.local:5000/sensorrack?clientId="+clientId+"&address="+address);
     console.log([response,response.data]);
     if (response.statusCode ==500)
     {
