@@ -6,8 +6,12 @@ import transaction from "../models/TransactionModel.js"
 import moment from 'moment';
 import { updateBinWeightData } from "./Bin.js";
 import {io } from "../index.js";
+import axios from "axios";
+import { response } from "express";
 
-
+const apiClient = axios.create({
+    withCredentials: false
+});
 export const ScanBadgeid = async (req, res) => {
     const { badgeId } = req.body;
     try {
@@ -105,7 +109,20 @@ export const CheckBinCapacity = async (req, res) => {
 };
 
 export const SaveTransaksi = async (req,res) => {
-    const {payload} = req.body;
+    const {payload,rackId} = req.body;
+    console.log([payload,rackId]);
+    const response = await apiClient.get("http://PCS-02.local:5000/sensorrack?SensorId="+rackId);
+    console.log(response);
+    if (response.statusCode != 200)
+    {
+        res.status(403).json("Rack Id Invalid");
+        return;
+    }
+    if (response.data.sensorrack == 0)
+    {
+        res.status(401).json("Sensor is 0");
+        return;
+    }
     payload.recordDate = moment().format("YYYY-MM-DD HH:mm:ss");
     console.log(payload);
     (await transaction.create(payload)).save();
