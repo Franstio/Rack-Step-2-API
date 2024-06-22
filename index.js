@@ -13,7 +13,7 @@ import bodyParser from "body-parser";
 const app = express();
 const server = http.createServer(app);
 const clientList= [];
-const port = 5000;
+const port = 5001;
 
  app.use(cors({
   origin: '*', // Allow any origin

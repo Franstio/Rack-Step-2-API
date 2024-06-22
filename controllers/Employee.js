@@ -114,7 +114,7 @@ export const SaveTransaksi = async (req,res) => {
     console.log([payload,clientId,address]);
     //const response = await apiClient.get(`http://PCS-02.local:5000/sensorrack?clientId=${clientId}&address=${address}`);
 
-    const response = await apiClient.get("http://PCS-02.local:5000/sensorrack?clientId="+clientId+"&address="+address);
+/*    const response = await apiClient.get("http://PCS-02.local:5000/sensorrack?clientId="+clientId+"&address="+address);
     console.log([response,response.data]);
     if (response.statusCode ==500)
     {
@@ -125,7 +125,7 @@ export const SaveTransaksi = async (req,res) => {
     {
         res.status(401).json("Sensor is 0");
         return;
-    }
+    }*/
     payload.recordDate = moment().format("YYYY-MM-DD HH:mm:ss");
     console.log(payload);
     (await transaction.create(payload)).save();
@@ -222,6 +222,32 @@ export const UpdateStatusContainer = async (req, res) => {
         });
 
         res.status(200).json({ msg: "Status berhasil diperbarui" });
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+};
+
+export const getTotalweight = async (req, res) => {
+    try {
+        const {name } = req.body;
+        
+        // Validasi input
+        if (!name) {
+            return res.status(400).json({ msg: "status harus disertakan" });
+        }
+        // Query berdasarkan bin_qr, status, dan idContainer
+        const transactionRecord = await Bin.findOne({
+            where: {
+                name: name
+            },
+            attributes: ['weight']  // specify the attributes to fetch
+        });
+
+        if (!transactionRecord) {
+            return res.status(404).json({ msg: "Data tidak ditemukan" });
+        }
+
+        res.status(200).json({ msg: "get data berhasil", data: transactionRecord });
     } catch (error) {
         res.status(500).json({ msg: error.message });
     }

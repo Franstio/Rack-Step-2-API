@@ -32,6 +32,9 @@ const transaction = db.define('transaction', {
     },
    recordDate: {
 	type: DataTypes.STRING
+   },
+   idqrmachine: {
+	type: DataTypes.STRING
    }
 }, {
     freezeTableName: true,

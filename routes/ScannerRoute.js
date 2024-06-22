@@ -1,6 +1,6 @@
 
 import express from "express";
-import {ScanBadgeid,ScanContainer,CheckBinCapacity,SaveTransaksi,UpdateBinWeight,UpdateBinWeightCollection, SaveTransaksiCollection,VerificationScan,UpdateDataFromStep1,UpdateStatusContainer} from "../controllers/Employee.js"
+import {ScanBadgeid,ScanContainer,CheckBinCapacity,SaveTransaksi,UpdateBinWeight,UpdateBinWeightCollection, SaveTransaksiCollection,VerificationScan,UpdateDataFromStep1,UpdateStatusContainer,getTotalweight} from "../controllers/Employee.js"
 import {getbinData} from "../controllers/Bin.js"
 
 const router = express.Router();
@@ -16,5 +16,6 @@ router.post('/CheckBinCapacity',CheckBinCapacity)
 router.post('/UpdateDataFromStep1',UpdateDataFromStep1)
 router.post('/UpdateStatusContainer',UpdateStatusContainer)
 router.get('/getbinData',getbinData);
+router.post('/gettotalweight',getTotalweight);
 //router.get('/Hostname',Hostname)
 export default router;
