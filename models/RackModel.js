@@ -35,7 +35,7 @@ const Rack = db.define('rack', {
 });
 
 
-Waste.hasMany(Rack, { foreignKey: 'IdWaste', as: 'rack' });
-Rack.belongsTo(Waste, { foreignKey: 'IdWaste', as: 'waste' });
+Waste.hasMany(Rack, { foreignKey: 'wasteId', as: 'rack' });
+Rack.belongsTo(Waste, { foreignKey: 'wasteId', as: 'waste' });
 
 export default Rack;
