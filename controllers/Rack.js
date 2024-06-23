@@ -10,7 +10,7 @@ export const getRackList = async (req, res) => {
                  include: [{
                     model: Waste,
                     attributes: ['name'],
-                    as: 'dataWaste'
+                    as: 'waste'
                 }, ], 
             });
      
