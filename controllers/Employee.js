@@ -146,9 +146,10 @@ export const SaveTransaksiCollection = async (req,res) => {
 };
 export const SaveTransaksiRack = async (req,res)=>{
     const {name,payload} = req.body;
+    console.log(moment().toDate().toString());
     const lastTransaction = await transaction.findOne({
         where: {
-            [Op.gte] : moment().toDate()
+            [Op.gte] : moment().toDate().toString()
         },
         include: [{
             model: Waste,
