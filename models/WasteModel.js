@@ -13,8 +13,6 @@ const Waste = db.define('waste',{
     name:{
         type: DataTypes.STRING,
         allowNull: false,
-    },scales: {
-        type: DataTypes.STRING,
     }
 },{
     freezeTableName: true
