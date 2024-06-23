@@ -18,6 +18,7 @@ const Rack = db.define('rack', {
     },
     IdWaste: {
         type: DataTypes.INTEGER,
+        field: "wasteId"
     },
     rackId: {
         type: DataTypes.INTEGER,
