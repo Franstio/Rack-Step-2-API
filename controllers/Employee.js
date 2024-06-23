@@ -105,7 +105,7 @@ export const CheckBinCapacity = async (req, res) => {
             return res.status(404).json({ success: false, message: 'No bins found for the given line' });
         }
 
-        const r = await setRackDoor(bins[0].dataValues.id,bins[0].dataValues.address,true);
+        const r = await setRackDoor(bins[0].dataValues.clientId,bins[0].dataValues.address,true);
         res.status(200).json({ success: true, bins });
     } catch (error) {
         console.error('Error checking bins:', error);
