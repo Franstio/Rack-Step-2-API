@@ -1,5 +1,6 @@
 import { clientList, io } from "../index.js";
 import Bin from "../models/BinModel.js";
+import Rack from "../models/RackModel.js";
 
 
 export const getWeightBin =  (socket) => {
@@ -26,7 +27,7 @@ export const updateBinWeightData = async (hostname)=>{
     console.log("Update " +hostname);
     console.log(clientList);
     console.log(_id);
-    const bin = await Bin.findOne({ where: { name_hostname: hostname } });
+    const bin = await Rack.findOne({ where: { name_hostname: hostname } });
     console.log({hostname:hostname,bin:bin});
     let payload = {};
     if (bin) {
@@ -40,7 +41,7 @@ export const updateBinWeightData = async (hostname)=>{
 export const getbinData = async (req, res) => {
     const { hostname } = req.query;
     try {
-        const bin = await Bin.findOne({
+        const bin = await Rack.findOne({
             where: { name_hostname: hostname }
         });
 

@@ -9,6 +9,7 @@ import {io } from "../index.js";
 import axios from "axios";
 import { response } from "express";
 import { Op } from "sequelize";
+import Rack from "../models/RackModel.js";
 
 const apiClient = axios.create({
     withCredentials: false
@@ -44,8 +45,8 @@ export const ScanContainer = async (req, res) => {
                     attributes: ['name'],
                     include: [
                 {
-                    model: Bin,
-                    as: 'bin',
+                    model: Rack,
+                    as: 'rack',
                     required: true,
                     duplicating:true,
                     foreignKey: 'IdWaste',
@@ -71,7 +72,7 @@ export const ScanContainer = async (req, res) => {
 export const VerificationScan = async (req, res) => {
     const { binName } = req.body;
     try {
-        const bin = await Bin.findOne({
+        const bin = await Rack.findOne({
             attributes: ['name'],where: { name: binName }
         });
 
@@ -92,7 +93,7 @@ export const CheckBinCapacity = async (req, res) => {
 
     try {
         // Mengambil semua tempat sampah yang sesuai dengan line dari database
-        const bins = await Bin.findAll({
+        const bins = await Rack.findAll({
             where: {
                 line: line
             }
@@ -164,7 +165,7 @@ export const SaveTransaksiRack = async (req,res)=>{
             }
         }]
     });
-    const binData = await Bin.findOne({
+    const binData = await Rack.findOne({
         where: {
             name: name
         }
@@ -182,7 +183,7 @@ export const SaveTransaksiRack = async (req,res)=>{
 
 export const UpdateBinWeight = async (req,res) =>{
     const {binId,weight} = req.body;
-    const data = await Bin.findOne({where: {rackId:binId}});
+    const data = await Rack.findOne({where: {rackId:binId}});
     data.weight = parseFloat(weight) + parseFloat(data.weight);
 //    console.log([data.weight,neto]);
     await data.save();
@@ -194,7 +195,7 @@ export const UpdateBinWeight = async (req,res) =>{
 
 export const UpdateBinWeightCollection = async (req, res) => {
     const { binId } = req.body; // neto is not needed as weight will be set to 0
-    const data = await Bin.findOne({ where: { rackId: binId } });
+    const data = await Rack.findOne({ where: { rackId: binId } });
     
     if (data) {
         data.weight = 0; // Set weight to 0
@@ -276,7 +277,7 @@ export const getTotalweight = async (req, res) => {
             return res.status(400).json({ msg: "status harus disertakan" });
         }
         // Query berdasarkan bin_qr, status, dan idContainer
-        const transactionRecord = await Bin.findOne({
+        const transactionRecord = await Rack.findOne({
             where: {
                 name: name
             },
