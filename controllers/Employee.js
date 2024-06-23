@@ -188,7 +188,7 @@ export const SaveTransaksiRack = async (req,res)=>{
     const lastWeight = !lastTransaction ? 0 : parseFloat(lastTransaction.getDataValue('weight'));
     payload.weight = parseFloat(payload.weight) + lastWeight;
     payload.idContainer = _container.dataValues.containerId;
-    payload.idWaste = _waste.idWaste;
+    payload.idWaste = _waste.wasteId;
     binData.setDataValue('weight',payload.weight);
     await binData.save();
     if (payload.handletype)
