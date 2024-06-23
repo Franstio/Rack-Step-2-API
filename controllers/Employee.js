@@ -164,7 +164,13 @@ export const SaveTransaksiRack = async (req,res)=>{
             required:true,
             foreignKey:"idContainer",
             where:{
-                name: name
+                [Op.or] : [{
+                    name: name
+                },
+                {
+                    name: containerName
+                }
+            ]
             }
         }]
     });
