@@ -51,6 +51,6 @@ Container.hasMany(transaction, { foreignKey: 'idContainer', as: 'container' });
 transaction.belongsTo(Container, { foreignKey: 'idContainer', as: 'container' });
 
 Weste.hasMany(transaction, { foreignKey: 'idWaste', as: 'transaction' });
-transaction.belongsTo(Weste, { foreignKey: 'wasteId', as: 'waste' });
+transaction.belongsTo(Weste, { foreignKey: 'idWaste', as: 'waste' });
 
 export default transaction;
