@@ -104,6 +104,7 @@ export const CheckBinCapacity = async (req, res) => {
             return res.status(404).json({ success: false, message: 'No bins found for the given line' });
         }
 
+        const r = await setRackDoor(bins[0].dataValues.id,bins[0].dataValues.address,true);
         res.status(200).json({ success: true, bins });
     } catch (error) {
         console.error('Error checking bins:', error);
@@ -177,7 +178,6 @@ export const SaveTransaksiRack = async (req,res)=>{
     binData.setDataValue('weight',payload.weight);
     await binData.save();
     (await transaction.create(payload)).save();
-    const r = await setRackDoor(binData.dataValues.id,binData.dataValues.address,true);
     return res.status(200).json({msg:payload});
 }
 
