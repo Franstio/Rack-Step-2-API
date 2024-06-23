@@ -176,7 +176,13 @@ export const SaveTransaksiRack = async (req,res)=>{
     });
     const binData = await Rack.findOne({
         where: {
-            name: name
+            [Op.or] : [{
+                name: name
+            },
+            {
+                name: containerName
+            }
+        ]
         }
     });
     const _waste = await Waste.findOne({
@@ -189,8 +195,8 @@ export const SaveTransaksiRack = async (req,res)=>{
             name: containerName
         }
     });
-/*    if (!binData)
-        return res.status(404).json({msg:'Container Rack Not Found'});*/
+    if (!binData)
+        return res.status(404).json({msg:'Container Rack Not Found'});
     const lastWeight = !lastTransaction ? 0 : parseFloat(lastTransaction.getDataValue('weight'));
     payload.weight = parseFloat(payload.weight) + lastWeight;
     payload.idContainer = _container.dataValues.containerId;
@@ -203,6 +209,7 @@ export const SaveTransaksiRack = async (req,res)=>{
     if (payload.handletype)
         delete payload.handletype;
     console.log(payload);
+    const r = await setRackDoor(binData.dataValues.clientId,binData.dataValues.address,true);
     (await transaction.create({...payload})).save();
     return res.status(200).json({msg:payload});
 }
