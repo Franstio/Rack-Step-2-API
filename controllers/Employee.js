@@ -183,6 +183,7 @@ export const SaveTransaksiRack = async (req,res)=>{
     await binData.save();
     if (payload.handletype)
         delete payload.handletype;
+    console.log(payload);
     (await transaction.create({payload})).save();
     return res.status(200).json({msg:payload});
 }
