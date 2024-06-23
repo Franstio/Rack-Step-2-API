@@ -10,6 +10,7 @@ import axios from "axios";
 import { response } from "express";
 import { Op } from "sequelize";
 import Rack from "../models/RackModel.js";
+import { setRackDoor } from "../Lib/BInApi.js";
 
 const apiClient = axios.create({
     withCredentials: false
