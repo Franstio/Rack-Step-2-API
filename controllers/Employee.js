@@ -157,13 +157,11 @@ export const SaveTransaksiRack = async (req,res)=>{
             model: Waste,
             as:'waste',
             required:true,
-            duplicating:true,
             foreignKey: 'IdWaste'
         },{
             model: Container,
             as :'container',
             required:true,
-            duplicating:true,
             foreignKey:"idContainer",
             where:{
                 name: name
