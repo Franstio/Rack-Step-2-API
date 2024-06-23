@@ -15,7 +15,8 @@ const Waste = db.define('waste',{
         allowNull: false,
     }
 },{
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps:false
 });
 
 
