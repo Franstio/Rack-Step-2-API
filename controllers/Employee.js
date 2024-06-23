@@ -8,10 +8,12 @@ import { updateBinWeightData } from "./Bin.js";
 import {io } from "../index.js";
 import axios from "axios";
 import { response } from "express";
+import { Op } from "sequelize";
 
 const apiClient = axios.create({
     withCredentials: false
 });
+const rackTarget = "PCS-02.local";
 export const ScanBadgeid = async (req, res) => {
     const { badgeId } = req.body;
     try {
@@ -139,6 +141,44 @@ export const SaveTransaksiCollection = async (req,res) => {
     (await transaction.create(payload)).save();
     res.status(200).json({msg:'ok'});
 };
+export const SaveTransaksiRack = async (req,res)=>{
+    const {name,payload} = req.body;
+    const lastTransaction = await transaction.findOne({
+        where: {
+            [Op.gte] : moment().toDate()
+        },
+        include: [{
+            model: Waste,
+            as:'waste',
+            required:true,
+            duplicating:true,
+            foreignKey: 'IdWaste'
+        },{
+            model: Container,
+            as :'container',
+            required:true,
+            duplicating:true,
+            foreignKey:"idContainer",
+            where:{
+                name: name
+            }
+        }]
+    });
+    const binData = await Bin.findOne({
+        where: {
+            name: name
+        }
+    });
+    if (!binData)
+        return res.status(404).json({msg:'Container Rack Not Found'});
+    const lastWeight = !lastTransaction ? 0 : parseFloat(lastTransaction.getDataValue('weight'));
+    payload.weight = parseFloat(payload.weight) + lastWeight;
+    binData.setDataValue('weight',payload.weight);
+    await binData.save();
+    (await transaction.create(payload)).save();
+    const r = await setRackDoor(binData.dataValues.id,binData.dataValues.address,true);
+    return res.status(200).json({msg:payload});
+}
 
 export const UpdateBinWeight = async (req,res) =>{
     const {binId,weight} = req.body;
