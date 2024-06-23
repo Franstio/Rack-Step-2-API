@@ -189,14 +189,17 @@ export const SaveTransaksiRack = async (req,res)=>{
             name: containerName
         }
     });
-    if (!binData)
-        return res.status(404).json({msg:'Container Rack Not Found'});
+/*    if (!binData)
+        return res.status(404).json({msg:'Container Rack Not Found'});*/
     const lastWeight = !lastTransaction ? 0 : parseFloat(lastTransaction.getDataValue('weight'));
     payload.weight = parseFloat(payload.weight) + lastWeight;
     payload.idContainer = _container.dataValues.containerId;
     payload.idWaste = _waste.wasteId;
-    binData.setDataValue('weight',payload.weight);
-    await binData.save();
+    if (binData)
+    {
+        binData.setDataValue('weight',payload.weight);
+        await binData.save();
+    }
     if (payload.handletype)
         delete payload.handletype;
     console.log(payload);
