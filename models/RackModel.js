@@ -16,7 +16,7 @@ const Rack = db.define('rack', {
     weightbin: {
         type: DataTypes.INTEGER,
     },
-    IdWaste: {
+    wasteId: {
         type: DataTypes.INTEGER,
     },
     rackId: {
