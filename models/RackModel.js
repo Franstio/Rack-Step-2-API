@@ -28,10 +28,11 @@ const Rack = db.define('rack', {
     },
     value: {
         type: DataTypes.INTEGER
-    }
-
+    },
+    
 }, {
-    freezeTableName: true
+    freezeTableName: true,
+    timestamps:false
 });
 
 
