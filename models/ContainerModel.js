@@ -13,6 +13,9 @@ const container = db.define('container', {
     name: {
         type: DataTypes.STRING,
     },
+    station: {
+        type: DataTypes.STRING
+    },
     weightbin: {
         type: DataTypes.DECIMAL,
     },

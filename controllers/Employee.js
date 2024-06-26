@@ -201,6 +201,7 @@ export const SaveTransaksiRack = async (req,res)=>{
     payload.weight = parseFloat(payload.weight) + lastWeight;
     payload.idContainer = _container.dataValues.containerId;
     payload.idWaste = _waste.wasteId;
+    payload.station = _container.dataValues.station;
     if (binData)
     {
         binData.setDataValue('weight',payload.weight);
@@ -209,7 +210,7 @@ export const SaveTransaksiRack = async (req,res)=>{
     if (payload.handletype)
         delete payload.handletype;
     console.log(payload);
-    const r = await setRackDoor(binData.dataValues.clientId,binData.dataValues.address,true);
+//    const r = await setRackDoor(binData.dataValues.clientId,binData.dataValues.address,true);
     (await transaction.create({...payload})).save();
     return res.status(200).json({msg:payload});
 }
