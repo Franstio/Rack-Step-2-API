@@ -210,7 +210,8 @@ export const SaveTransaksiRack = async (req,res)=>{
     if (payload.handletype)
         delete payload.handletype;
     console.log(payload);
-//    const r = await setRackDoor(binData.dataValues.clientId,binData.dataValues.address,true);
+    if (payload.type=='Collection')
+        await setRackDoor(binData.dataValues.clientId,binData.dataValues.address,true);
     (await transaction.create({...payload})).save();
     return res.status(200).json({msg:payload});
 }
