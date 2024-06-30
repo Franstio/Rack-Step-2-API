@@ -15,7 +15,7 @@ import { setRackDoor } from "../Lib/BInApi.js";
 const apiClient = axios.create({
     withCredentials: false
 });
-const rackTarget = "PCS-02.local";
+const rackTarget = "PCL-10.local";
 export const ScanBadgeid = async (req, res) => {
     const { badgeId } = req.body;
     try {
@@ -117,9 +117,9 @@ export const SaveTransaksi = async (req,res) => {
    // const {payload,clientId,address} = req.body;
     const {payload,clientId,address} = req.body;
     console.log([payload,clientId,address]);
-    //const response = await apiClient.get(`http://PCS-02.local:5000/sensorrack?clientId=${clientId}&address=${address}`);
+    //const response = await apiClient.get(`http://PCL-10.local:5000/sensorrack?clientId=${clientId}&address=${address}`);
 
-/*    const response = await apiClient.get("http://PCS-02.local:5000/sensorrack?clientId="+clientId+"&address="+address);
+/*    const response = await apiClient.get("http://PCL-10.local:5000/sensorrack?clientId="+clientId+"&address="+address);
     console.log([response,response.data]);
     if (response.statusCode ==500)
     {
