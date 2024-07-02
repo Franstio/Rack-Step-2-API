@@ -206,6 +206,7 @@ export const SaveTransaksiRack = async (req,res)=>{
     {
         binData.setDataValue('weight',payload.weight);
         await binData.save();
+        io.emit('weightUpdated', { binId: binData.dataValues.rackId, weight: binData.dataValues.weight });
     }
     if (payload.handletype)
         delete payload.handletype;
