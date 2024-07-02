@@ -147,7 +147,7 @@ export const SaveTransaksiCollection = async (req,res) => {
 export const SaveTransaksiRack = async (req,res)=>{
     const {name,payload,waste,containerName} = req.body;
     console.log(moment().toDate().toString());
-    const lastTransaction = await transaction.findOne({
+    /*const lastTransaction = await transaction.findOne({
         where: {
             recordDate: {
             [Op.gte] : moment().toDate()
@@ -173,7 +173,7 @@ export const SaveTransaksiRack = async (req,res)=>{
             ]
             }
         }]
-    });
+    });*/
     const binData = await Rack.findOne({
         where: {
             [Op.or] : [{
@@ -197,7 +197,7 @@ export const SaveTransaksiRack = async (req,res)=>{
     });
     if (!binData)
         return res.status(404).json({msg:'Container Rack Not Found'});
-    const lastWeight = !lastTransaction ? 0 : parseFloat(lastTransaction.getDataValue('weight'));
+    const lastWeight = !binData.getDataValue("weightbin") ? 0 : parseFloat(binData.getDataValue('weightbin'));
     payload.weight = parseFloat(payload.weight) + lastWeight;
     payload.idContainer = _container.dataValues.containerId;
     payload.idWaste = _waste.wasteId;
@@ -208,6 +208,8 @@ export const SaveTransaksiRack = async (req,res)=>{
         await binData.save();
         io.emit('weightUpdated', { binId: binData.dataValues.rackId, weight: binData.dataValues.weight });
     }
+    else
+        await binData.save();
     if (payload.handletype)
         delete payload.handletype;
     console.log(payload);
