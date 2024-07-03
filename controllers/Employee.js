@@ -146,7 +146,7 @@ export const SaveTransaksiCollection = async (req,res) => {
 };
 export const SaveTransaksiRack = async (req,res)=>{
     const {name,payload,waste,containerName} = req.body;
-    console.log(moment().toDate().toString());
+//    console.log(moment().toDate().toString());
     /*const lastTransaction = await transaction.findOne({
         where: {
             recordDate: {
@@ -195,6 +195,7 @@ export const SaveTransaksiRack = async (req,res)=>{
             name: containerName
         }
     });
+    console.log(binData);
     if (!binData)
         return res.status(404).json({msg:'Container Rack Not Found'});
     const lastWeight = !binData.getDataValue("weightbin") ? 0 : parseFloat(binData.getDataValue('weightbin'));
