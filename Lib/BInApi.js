@@ -6,6 +6,7 @@ const rackTarget = "PCL-10.local:5000";
 export const setRackDoor = async (id,address,open)=>{
     try
     {
+        console.log({TARGET: [id,address,open]})
         return await apiClient.post(`http://${rackTarget}/rackOpenManual`,{
             idRack: id,
             address: address,
