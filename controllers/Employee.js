@@ -198,14 +198,15 @@ export const SaveTransaksiRack = async (req,res)=>{
     console.log({transaksiRack: binData});
     if (!binData)
         return res.status(404).json({msg:'Container Rack Not Found'});
-    const lastWeight = !binData.getDataValue("weightbin") ? 0 : parseFloat(binData.getDataValue('weightbin'));
-    console.log({transaksiRack2: binData});
+    const lastWeight = !binData.dataValues.weightbin ? 0 : parseFloat(binData.dataValues.weightbin);
+    console.log({transaksiRack2: binData,lastWeight: lastWeight});
     payload.weight = parseFloat(payload.weight) + lastWeight;
     payload.idContainer = _container.dataValues.containerId;
     payload.idWaste = _waste.wasteId;
     payload.station = _container.dataValues.station;
     if (binData)
     {
+        console.log("Update weight " +  lastWeight);
         binData.setDataValue('weight',payload.weight);
         await binData.save();
         io.emit('weightUpdated', { binId: binData.dataValues.rackId, weight: binData.dataValues.weight });
