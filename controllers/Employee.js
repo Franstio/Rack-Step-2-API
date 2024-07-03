@@ -195,10 +195,11 @@ export const SaveTransaksiRack = async (req,res)=>{
             name: containerName
         }
     });
-    console.log(binData);
+    console.log({transaksiRack: binData});
     if (!binData)
         return res.status(404).json({msg:'Container Rack Not Found'});
     const lastWeight = !binData.getDataValue("weightbin") ? 0 : parseFloat(binData.getDataValue('weightbin'));
+    console.log({transaksiRack2: binData});
     payload.weight = parseFloat(payload.weight) + lastWeight;
     payload.idContainer = _container.dataValues.containerId;
     payload.idWaste = _waste.wasteId;

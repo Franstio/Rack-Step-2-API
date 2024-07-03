@@ -11,10 +11,10 @@ const Rack = db.define('rack', {
         type: DataTypes.INTEGER,
     },
     weight: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL,
     },
     weightbin: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.DECIMAL,
     },
     wasteId: {
         type: DataTypes.INTEGER,
