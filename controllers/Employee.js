@@ -200,7 +200,7 @@ export const SaveTransaksiRack = async (req,res)=>{
         return res.status(404).json({msg:'Container Rack Not Found'});
     const lastWeight = !binData.dataValues.weight ? 0 : parseFloat(binData.dataValues.weight);
     console.log({transaksiRack2: binData,lastWeight: lastWeight});
-    payload.weight = parseFloat(payload.weight) + lastWeight;
+    payload.weight = (payload.type=='Collection') ? 0 :  parseFloat(payload.weight) + lastWeight;
     payload.idContainer = _container.dataValues.containerId;
     payload.idWaste = _waste.wasteId;
     payload.station = _container.dataValues.station;
