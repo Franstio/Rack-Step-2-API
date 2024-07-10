@@ -10,11 +10,13 @@ import { Server } from "socket.io";
 import { getScales50Kg} from "./controllers/Scales.js";
 import bodyParser from "body-parser";
 //import {getWeightBin} from "./controllers/Bin.js"
+import {config} from 'dotenv';
+config();
 const app = express();
 const server = http.createServer(app);
 const clientList= [];
 const port = 5001;
-
+dotenv
  app.use(cors({
   origin: '*', // Allow any origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods

@@ -2,7 +2,7 @@ import axios from "axios";
 const apiClient = axios.create({
     withCredentials: false
 });
-const rackTarget = "PCL-10.local:5000";
+const rackTarget = process.env.RACK_BIN;
 export const setRackDoor = async (id,address,open)=>{
     try
     {
