@@ -16,7 +16,7 @@ const app = express();
 const server = http.createServer(app);
 const clientList= [];
 const port = 5001;
-dotenv
+
  app.use(cors({
   origin: '*', // Allow any origin
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific HTTP methods
