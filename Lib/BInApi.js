@@ -6,8 +6,8 @@ const rackTarget = process.env.RACK_BIN;
 export const setRackDoor = async (id,address,open)=>{
     try
     {
-        console.log({TARGET: [id,address,open]})
-        return await apiClient.post(`http://${rackTarget}/rackOpenManual`,{
+        console.log({TARGET: [id,address,open,rackTarget]})
+        return await apiClient.post(`http://${rackTarget ? rackTarget : process.env.RACK_BIN}/rackOpenManual`,{
             idRack: id,
             address: address,
             value: open ? 1 : 0
