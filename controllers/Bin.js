@@ -6,10 +6,8 @@ import Rack from "../models/RackModel.js";
 export const getWeightBin =  (socket) => {
     try {
         socket.on('getWeightBin',async (hostname)=>{
-            console.log('Register ' + hostname);
             if (!clientList.find(x=>x.hostname==hostname))
                 clientList.push({id:socket.id,hostname:hostname});
-            console.log(clientList);
             await updateBinWeightData(hostname);
         });
     } catch (error) {
@@ -19,16 +17,10 @@ export const getWeightBin =  (socket) => {
 };
 
 export const updateBinWeightData = async (hostname)=>{
-    console.log('Update Client '+ hostname );
-    console.log(clientList);
     const _id = clientList.find(x=>x.hostname==hostname);
     if (!_id)
         return;
-    console.log("Update " +hostname);
-    console.log(clientList);
-    console.log(_id);
     const bin = await Rack.findOne({ where: { name_hostname: hostname } });
-    console.log({hostname:hostname,bin:bin});
     let payload = {};
     if (bin) {
         payload = { weight: bin.weight };

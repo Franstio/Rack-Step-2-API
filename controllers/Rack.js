@@ -22,7 +22,6 @@ export const getRackList = async (req, res) => {
 
 export const Login = async (req, res) => {
     try {
-        console.log(req.body);
       const user = await Admin.findOne({
         where: {
           password: req.body.password,

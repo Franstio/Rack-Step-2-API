@@ -90,7 +90,6 @@ export const VerificationScan = async (req, res) => {
 
 export const CheckBinCapacity = async (req, res) => {
     const { line } = req.body;
-    console.log(req.body);
 
     try {
         // Mengambil semua tempat sampah yang sesuai dengan line dari database
@@ -116,11 +115,9 @@ export const CheckBinCapacity = async (req, res) => {
 export const SaveTransaksi = async (req,res) => {
    // const {payload,clientId,address} = req.body;
     const {payload,clientId,address} = req.body;
-    console.log([payload,clientId,address]);
     //const response = await apiClient.get(`http://PCL-10.local:5000/sensorrack?clientId=${clientId}&address=${address}`);
 
 /*    const response = await apiClient.get("http://PCL-10.local:5000/sensorrack?clientId="+clientId+"&address="+address);
-    console.log([response,response.data]);
     if (response.statusCode ==500)
     {
         res.status(403).json("Rack Id Invalid");
@@ -132,7 +129,6 @@ export const SaveTransaksi = async (req,res) => {
         return;
     }*/
     payload.recordDate = moment().format("YYYY-MM-DD HH:mm:ss");
-    console.log(payload);
     (await transaction.create(payload)).save();
     res.status(200).json({msg:'ok'});
 };
@@ -140,13 +136,11 @@ export const SaveTransaksi = async (req,res) => {
 export const SaveTransaksiCollection = async (req,res) => {
     const {payload} = req.body;
     payload.recordDate = moment().format("YYYY-MM-DD HH:mm:ss");
-    console.log({collection: payload});
     (await transaction.create(payload)).save();
     res.status(200).json({msg:'ok'});
 };
 export const SaveTransaksiRack = async (req,res)=>{
     const {name,payload,waste,containerName} = req.body;
-//    console.log(moment().toDate().toString());
     /*const lastTransaction = await transaction.findOne({
         where: {
             recordDate: {
@@ -195,18 +189,15 @@ export const SaveTransaksiRack = async (req,res)=>{
             name: containerName
         }
     });
-    console.log({transaksiRack: binData});
     if (!binData)
         return res.status(404).json({msg:'Container Rack Not Found'});
     const lastWeight = !binData.dataValues.weight ? 0 : parseFloat(binData.dataValues.weight);
-    console.log({transaksiRack2: binData,lastWeight: lastWeight});
     payload.weight = (payload.type=='Collection') ? 0 :  parseFloat(payload.weight) + lastWeight;
     payload.idContainer = _container.dataValues.containerId;
     payload.idWaste = _waste.wasteId;
     payload.station = _container.dataValues.station;
     if (binData)
     {
-        console.log("Update weight " +  lastWeight);
         binData.setDataValue('weight',payload.weight);
         await binData.save();
         io.emit('weightUpdated', { binId: binData.dataValues.rackId, weight: binData.dataValues.weight });
@@ -215,7 +206,6 @@ export const SaveTransaksiRack = async (req,res)=>{
         await binData.save();
     if (payload.handletype)
         delete payload.handletype;
-    console.log(payload);
     if (payload.type=='Collection')
         await setRackDoor(binData.dataValues.clientId,binData.dataValues.address,true);
     (await transaction.create({...payload})).save();
@@ -226,7 +216,6 @@ export const UpdateBinWeight = async (req,res) =>{
     const {binId,weight} = req.body;
     const data = await Rack.findOne({where: {rackId:binId}});
     data.weight = parseFloat(weight) + parseFloat(data.weight);
-//    console.log([data.weight,neto]);
     await data.save();
      io.emit('weightUpdated', { binId: data.rackId, weight: data.weight });
     
@@ -252,7 +241,6 @@ export const UpdateBinWeightCollection = async (req, res) => {
 export const UpdateDataFromStep1 = async (req, res) => {
     try {
         const { name, status ,line} = req.body;
-        console.log([name, status,line]);
         if (!name || !status) {
             return res.status(400).json({ msg: "Name dan status harus disertakan" });
         }
@@ -283,7 +271,6 @@ export const UpdateDataFromStep1 = async (req, res) => {
 export const UpdateStatusContainer = async (req, res) => {
     try {
        const { name, status} = req.body;
-        console.log([name, status]);
         if (!name ) {
             return res.status(400).json({ msg: "Name dan status harus disertakan" });
         }
