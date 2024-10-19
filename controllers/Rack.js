@@ -36,7 +36,7 @@ export const Login = async (req, res) => {
 //        if(!match) return res.status(400).json({msg: "Password Anda Salah!"});
         res.status(200).json({msg: 'Berhasil!!'})
     } catch (error) {
-      console.error(error);
+      console.log(error);
       res.status(500).json({ msg: 'Terjadi kesalahan server' });
     }
 }

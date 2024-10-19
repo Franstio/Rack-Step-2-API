@@ -26,7 +26,7 @@ export const ScanBadgeid = async (req, res) => {
             res.json({ error: 'Badge ID not found' });
         }
     } catch (error) {
-        console.error(error);
+        console.log(error);
         res.status(500).json({ msg: 'Terjadi kesalahan server'  });
     }
 };
@@ -65,7 +65,7 @@ export const ScanContainer = async (req, res) => {
             res.json({ error: 'Container ID not found' });
         }
     } catch (error) {
-        console.error(error);
+        console.log(error);
         res.status(500).json({ msg: 'Terjadi kesalahan server' });
     }
 };
@@ -83,7 +83,7 @@ export const VerificationScan = async (req, res) => {
             res.json({ error: 'Container ID not found' });
         }
     } catch (error) {
-        console.error(error);
+        console.log(error);
         res.status(500).json({ msg: 'Terjadi kesalahan server' });
     }
 };
@@ -107,7 +107,7 @@ export const CheckBinCapacity = async (req, res) => {
         const r = await setRackDoor(bins[0].dataValues.clientId,bins[0].dataValues.address,true);
         res.status(200).json({ success: true, bins });
     } catch (error) {
-        console.error('Error checking bins:', error);
+        console.log('Error checking bins:', error);
         res.status(500).json({ success: false, message: 'Internal Server Error' });
     }
 };

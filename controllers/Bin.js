@@ -11,7 +11,7 @@ export const getWeightBin =  (socket) => {
             await updateBinWeightData(hostname);
         });
     } catch (error) {
-        console.error(error);
+        console.log(error);
         socket.emit("getWeight",{ payload: {error:'Terjadi kesalahan server'} });
     }
 };
@@ -43,7 +43,7 @@ export const getbinData = async (req, res) => {
             res.json({ error: 'bin ID not found' });
         }
     } catch (error) {
-        console.error(error);
+        console.log(error);
         res.status(500).json({ msg: 'Terjadi kesalahan server' });
     }
 };
@@ -54,7 +54,7 @@ export const getTimbanganData = async (req, res) => {
     const instruksimsg = req.body.pesan;
     res.status(200).json({ instruksimsg });
     } catch (error) {
-        console.error(error);
+        console.log(error);
         res.status(500).json({ msg: 'Terjadi kesalahan server' });
     }
 };
