@@ -336,8 +336,8 @@ export const syncEmployeePIDSG = async ()=>{
     try
     {
         const apiRes = await axios.get(
-            `http://${process.env.PIDSG}/api/pid/employee-sync?f1=${process.env.STATION}`);
-        const syncEmp = apiRes.data.result[0];
+            `http://${process.env.TIMBANGAN}/employee`);
+        const syncEmp = apiRes.data;
         for (let i=0;i<syncEmp.length;i++)
         {
             const empRes = await db.query("Select badgeId,username from employee where badgeId=?",{type:QueryTypes.SELECT,replacements:[syncEmp[i].badgeno]});
