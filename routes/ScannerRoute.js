@@ -17,7 +17,7 @@ router.post('/UpdateDataFromStep1',UpdateDataFromStep1)
 router.post('/UpdateStatusContainer',UpdateStatusContainer)
 router.get('/getbinData',getbinData);
 router.post('/gettotalweight',getTotalweight);
-router.get('/employee-sync',syncEmployeePIDSGAPI);
-router.get('/weightbin-sync',syncDataBinPIDSG);
+router.post('/employee-sync',syncEmployeePIDSGAPI);
+router.post('/weightbin-sync',syncDataBinPIDSG);
 //router.get('/Hostname',Hostname)
 export default router;
