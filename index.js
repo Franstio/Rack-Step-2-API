@@ -33,7 +33,7 @@ const io = new Server(server, {
   cors: {
     origin: "*"
   }
-});
+}); 
 
 app.use(bodyParser.json());
 
