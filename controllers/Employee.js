@@ -330,21 +330,17 @@ export const getTotalweight = async (req, res) => {
 } */
 
 export const syncEmployeePIDSGAPI = async (req,res)=>{
-    return res.json(await syncEmployeePIDSG());
-}
-
-export const syncEmployeePIDSG = async ()=>{
     try
     {
-        const apiRes = await axios.get(
-            `http://${process.env.TIMBANGAN}/employee`);
-        const syncEmp = apiRes.data;
+        const {syncEmp} = req.body;
+        const apiEmpBadgeNo= [];
         for (let i=0;i<syncEmp.length;i++)
         {
-            const empRes = await db.query("Select badgeId,username from employee where badgeId=?",{type:QueryTypes.SELECT,replacements:[syncEmp[i].badgeno]});
+            const empRes = await db.query("Select badgeId,username,active from employee where badgeId=?",{type:QueryTypes.SELECT,replacements:[syncEmp[i].badgeno]});
+            apiEmpBadgeNo.push(`'${syncEmp[i].badgeno}'`);
             if (empRes.length < 1)
             {
-                await db.query("Insert Into employee(username,active,badgeId) values(?,1,?)",
+                await db.query("Insert Into employee(username,badgeId,active) values(?,?,1)",
                 {
                     type:QueryTypes.INSERT,
                     replacements: [syncEmp[i].employeename,syncEmp[i].badgeno]
@@ -352,17 +348,45 @@ export const syncEmployeePIDSG = async ()=>{
             }
             else
             {
-                await db.query("Update employee set username=? where badgeId=?",{
+                await db.query("Update employee set username=?,active=1 where badgeId=?",{
                     type: QueryTypes.UPDATE,
                     replacements: [syncEmp[i].employeename,syncEmp[i].badgeno]
                 })
             }
         }
-        return syncEmp;
+
+        await db.query("Update employee set active=0 where badgeId not in (" + apiEmpBadgeNo.join(",") + ")",{
+          type: QueryTypes.UPDATE
+        });
+        return res.status(200).json({msg:"Sync Success"});
     }
     catch (er)
     {
         console.log(er);
-        return  er.message || er;
+        return  res.status(500).json({msg:er.message || er});
+    }
+}
+export const syncDataBinPIDSG = async (req,res)=>{
+    try
+    {    
+        const {syncBin} = req.body;
+        for (let i=0;i<syncBin.length;i++)
+        {
+            await db.query("update bin set max_weight=? where name=? ",{
+                    type: QueryTypes.UPDATE,
+                    replacements: [syncBin[i].capacity,syncBin[i].name]
+                });  
+            await db.query("update   container set weightbin=? where name=? ",{
+                type: QueryTypes.UPDATE,
+                replacements: [syncBin[i].weight,syncBin[i].name]
+            })
+        }
+        return res.status(200).json({msg:"Sync Success"});
+    }
+    catch (er)
+    {
+
+        console.log(er);
+        return  res.status(500).json({msg:er.message || er});
     }
 }

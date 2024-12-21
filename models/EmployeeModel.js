@@ -10,6 +10,9 @@ const employee = db.define('employee', {
     },
     username: {
         type: DataTypes.STRING,
+    },
+    active: {
+        type: DataTypes.INTEGER
     }
 }, {
     freezeTableName: true
