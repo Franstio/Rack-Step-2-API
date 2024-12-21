@@ -371,9 +371,9 @@ export const syncDataBinPIDSG = async (req,res)=>{
         const {syncBin} = req.body;
         for (let i=0;i<syncBin.length;i++)
         {
-            await db.query("update bin set max_weight=? where name=? ",{
+            await db.query("update rack set max_weight=?,weightbin=? where name=? ",{
                     type: QueryTypes.UPDATE,
-                    replacements: [syncBin[i].capacity,syncBin[i].name]
+                    replacements: [syncBin[i].capacity,syncBin[i].weight,syncBin[i].name]
                 });  
             await db.query("update   container set weightbin=? where name=? ",{
                 type: QueryTypes.UPDATE,
