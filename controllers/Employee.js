@@ -11,6 +11,7 @@ import { response } from "express";
 import { Op } from "sequelize";
 import Rack from "../models/RackModel.js";
 import { setRackDoor } from "../Lib/BInApi.js";
+import db from "../config/db.js";
 
 const apiClient = axios.create({
     withCredentials: false
