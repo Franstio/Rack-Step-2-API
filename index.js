@@ -11,7 +11,6 @@ import { Server } from "socket.io";
 import bodyParser from "body-parser";
 //import {getWeightBin} from "./controllers/Bin.js"
 import {config} from 'dotenv';
-import { syncEmployeePIDSG } from "./controllers/Employee.js";
 config();
 const app = express();
 const server = http.createServer(app);
@@ -62,11 +61,6 @@ server.listen(port, () => {
   console.log(`Server up and running on port ${port}`);
 });
 
-const syncEmp = async ()=>{
-  await syncEmployeePIDSG();
-  console.log('Sync Employee');
-  setTimeout(syncEmp,10*10*1000);
-}
-syncEmp();
+
 export {clientList,io,Server};
 //getScales50Kg(io);
