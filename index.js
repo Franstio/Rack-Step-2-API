@@ -7,7 +7,7 @@ import db from "./config/db.js";
 import cors from  "cors";
 import http from 'http';
 import { Server } from "socket.io";
-import { getScales50Kg} from "./controllers/Scales.js";
+//import { getScales50Kg} from "./controllers/Scales.js";
 import bodyParser from "body-parser";
 //import {getWeightBin} from "./controllers/Bin.js"
 import {config} from 'dotenv';
@@ -62,4 +62,3 @@ server.listen(port, () => {
 });
 
 export {clientList,io,Server};
-getScales50Kg(io);
