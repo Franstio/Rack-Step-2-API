@@ -19,5 +19,6 @@ router.get('/getbinData',getbinData);
 router.post('/gettotalweight',getTotalweight);
 router.post('/employee-sync',syncEmployeePIDSGAPI);
 router.post('/weightbin-sync',syncDataBinPIDSG);
+router.get('/ping',(req,res)=>res.json({msg:'ok123'}));
 //router.get('/Hostname',Hostname)
 export default router;
