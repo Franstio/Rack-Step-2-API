@@ -62,11 +62,6 @@ server.listen(port, () => {
   console.log(`Server up and running on port ${port}`);
 });
 
-const syncEmp = async ()=>{
-  await syncEmployeePIDSG();
-  console.log('Sync Employee');
-  setTimeout(syncEmp,10*10*1000);
-}
-syncEmp();
+
 export {clientList,io,Server};
 //getScales50Kg(io);
