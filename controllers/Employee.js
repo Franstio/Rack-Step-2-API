@@ -90,19 +90,15 @@ export const VerificationScan = async (req, res) => {
 };
 
 export const CheckBinCapacity = async (req, res) => {
-    const { line } = req.body;
+    const { line,weight } = req.body;
 
     try {
         // Mengambil semua tempat sampah yang sesuai dengan line dari database
-        const bins = await Rack.findAll({
-            where: {
-                line: line
-            }
-        });
-
+        const bins = await db.query("Select * from rack where line=? and weight+? < max_weight",{type:QueryTypes.SELECT,
+        replacements: [line,weight]});
         // Jika tidak ada tempat sampah yang ditemukan untuk line yang diberikan
         if (!bins || bins.length === 0) {
-            return res.status(404).json({ success: false, message: 'No bins found for the given line' });
+            return res.status(404).json({ success: false, message: 'No bins found available' });
         }
 
         const r = await setRackDoor(bins[0].dataValues.clientId,bins[0].dataValues.address,true);
