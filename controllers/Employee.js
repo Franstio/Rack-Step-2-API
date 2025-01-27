@@ -100,7 +100,7 @@ export const CheckBinCapacity = async (req, res) => {
         if (!bins || bins.length === 0) {
             return res.status(404).json({ success: false,bins:[], message: 'No bins found available' });
         }
-
+        console.log(bins);
         const r = await setRackDoor(bins[0].clientId,bins[0].address,true);
         res.status(200).json({ success: true, bins });
     } catch (error) {
