@@ -94,7 +94,7 @@ export const CheckBinCapacity = async (req, res) => {
 
     try {
         // Mengambil semua tempat sampah yang sesuai dengan line dari database
-        const bins = await db.query(`Select * from rack where line=? and (weight+${weight}) < max_weight`,{type:QueryTypes.SELECT,
+        const bins = await db.query(`Select * from rack where line=?`,{type:QueryTypes.SELECT,
         replacements: [line]});
         // Jika tidak ada tempat sampah yang ditemukan untuk line yang diberikan
         if (!bins || bins.length === 0) {
